@@ -15,7 +15,7 @@ if getattr(settings, 'ADMIN_HONEYPOT_REPORT_HPFEEDS', False):
         'HPFEEDS_IDENT',
         'HPFEEDS_SECRET',
         'HPFEEDS_CHANNEL',
-        'SERVERID',
+        'HPFEEDS_SERVERID',
     ]
     if all(var in os.environ for var in environreq):
         hpf_server = os.environ.get('HPFEEDS_SERVER', False)
