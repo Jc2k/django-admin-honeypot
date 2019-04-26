@@ -54,10 +54,16 @@ def report_hpfeeds(instance, request, **kwargs):
         password_to_store = request.POST.get('password')
     else:
         password_to_store = None
+
+    dest_ip, dest_port = request.environ['wsgi.input'].stream.raw._sock.getsockname()
+    src_ip, src_port = request.environ['wsgi.input'].stream.raw._sock.getpeername()
+
     msg = {
         'timestamp:': instance.timestamp.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
-        'src_ip': request.META.get('REMOTE_ADDR'),
-        'src_port': request.META.get('SERVER_PORT'),
+        'src_ip': src_ip,
+        'src_port': src_port,
+        'dest_ip': dest_ip,
+        'dest_port': dest_port,
         'user_agent': request.META.get('HTTP_USER_AGENT'),
         'path': request.get_full_path(),
         'uri': request.build_absolute_uri(),
